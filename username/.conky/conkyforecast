@@ -1,0 +1,39 @@
+background no
+own_window yes
+own_window_type override
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_colour black
+double_buffer yes
+use_spacer left
+override_utf8_locale yes
+use_xft yes
+xftfont SonyEricssonLogo:size=10
+#xftfont Monospace:size=9
+xftalpha 0.5
+update_interval 5.0
+uppercase no # set to yes if you want all text to be in uppercase
+stippled_borders 0 #3
+#border_margin 0 #9
+border_width 0 #10
+default_outline_color black
+default_shade_color black
+draw_borders no
+draw_outline yes # amplifies text if yes
+draw_shades yes # shadecolor black
+
+#alignment bm # Aligned position on screen: tl, tr, tm, bl, br, bm, ml, mr
+alignment bottom_left
+#gap_x 510
+gap_y 40 # because of the VOFFSET, the negative "gap_y" value brings conky back to the bottom of the screen.
+text_buffer_size 6144 # 256 is the minimum
+no_buffers yes # Subtract file system buffers from used memory?
+short_units yes
+pad_percents 2
+imlib_cache_size 0
+
+TEXT
+${execpi 1800 conkyForecast --location=UPXX0014 --template=/home/aerus/.conky/scripts/weather.template}
+
+
+

@@ -1,0 +1,45 @@
+# UBUNTU-CONKY
+double_buffer yes
+own_window yes
+own_window_transparent yes
+own_window_type override
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+background no  #Transparent background.
+use_spacer right
+draw_shades no
+draw_graph_borders no
+update_interval 1
+minimum_size 100
+maximum_width 250
+# Text stuff
+draw_outline no # amplifies text if yes
+draw_borders no
+use_xft yes
+xftfont SonyEricssonLogo:size=10
+xftalpha 0.8
+uppercase no # set to yes if you want all text to be in uppercase
+stippled_borders 3
+#border_width 10
+#default_color green
+alignment top_left
+#alignment top_right
+#alignment bottom_left
+#alignment bottom_right
+no_buffers yes
+gap_x 300
+#gap_y 0
+# stuff after 'TEXT' will be formatted on screen
+
+# ${if_existing /media/AERUS/nul}
+#/flash:  ${alignr}${fs_free /media/AERUS} / ${fs_size /media/AERUS}
+#${fs_bar 4 /media/AERUS}$color ${endif}
+#Current disk read: ${alignr}${diskio_read /dev/sda} / write: ${alignr}${diskio_write /dev/sda}
+
+TEXT
+${font arial black:size=10}${color green}TRAFFIC:${color} ${hr 2}$color$font
+${alignc}IN         OUT         TOTAL
+${if_existing /proc/net/route eth0}Today: ${alignc}${texeci 10 vnstat -i eth0| grep "today" | awk '{print $2 $3"   "$5 $6"   "$8 $9}'}
+Week: ${alignc}${texeci 300 vnstat -w -i eth0| grep "current week" | awk '{print $3 $4"   "$6 $7"   "$9 $10}'}
+Month: ${alignc}${texeci 300 vnstat -m -i eth0 | grep `LANG=en_GB.UTF-8 date +"%b"` | awk '{print $3 $4"   "$6 $7"  "$9 $10}'}${font}${endif}
+${downspeedgraph eth2 20,80 000000 00ff00}${alignr}${upspeedgraph eth2 20,80 000000 ff0000}
+------------------------------------------

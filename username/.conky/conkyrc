@@ -1,0 +1,84 @@
+# --- Window Layout & Options --- #
+use_xft yes
+own_window yes
+own_window_transparent yes #yes
+own_window_type override
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+double_buffer yes
+alignment top_right
+use_spacer none #none
+gap_x 15
+gap_y 25
+total_run_times 0
+no_buffers yes
+cpu_avg_samples 2
+net_avg_samples 1
+
+# --- Colours, Sizes, Fonts & Margins --- #
+xftfont Verdana:size=8
+xftalpha 1
+update_interval 1.0
+minimum_size 180 0
+#maximum_width 200
+stippled_borders 0
+border_width 1
+default_color white
+#default_color 303030
+#default_shade_color black
+default_outline_color white
+own_window_colour white
+#own_window_colour 262524
+
+# --- Text --- #
+draw_outline no
+draw_borders no #no
+uppercase no
+draw_shades no
+override_utf8_locale yes
+text_buffer_size 2048
+
+TEXT
+${stippled_hr}
+${color a4a4a4}${font LCDMono:size=20}${time %H:%M}${font}${font LCDMono:size=10}${time :%S}${color}${font}${alignr 10}${voffset -15}${font LCDMono:size=10}${time %d/%m/%y}${font}
+${alignr 20}${font Verdana:style=Italic:size=10}${time %a}${font}
+${stippled_hr}
+${voffset 3}${font OpenLogos:size=15}u${font} ${voffset -4}SYSTEM:${alignr}${kernel}
+${voffset 3}${font StyleBats:size=15}A${font} ${voffset -4}  CPU1: ${cpu cpu0}%${alignr 40}${cpubar 6, 70}
+${voffset 3}${font StyleBats:size=15}A${font} ${voffset -4}  CPU2: ${cpu cpu1}%${alignr 40}${cpubar 6, 70}
+${voffset -30}${alignr}${font Weather:size=25}y${font}${voffset -10}${execi 300 sensors -A it8718-isa-0290 | grep 'temp3' | cut -c15-16 ;}°C
+${voffset 13}${font StyleBats:size=15}g${font} ${voffset -4}  RAM: $memperc% ${alignr}${membar 6,110}
+#${voffset 3}${font StyleBats:size=16}j${font} ${voffset -4}  SWAP: $swapperc% ${alignr}${swapbar 8,60}
+${voffset 3}${font StyleBats:size=15}v${font} ${voffset -4}  Update: ${alignr}${execi 600 aptitude search "~U" | wc -l | tail} package(s)
+${voffset 3}${font StyleBats:size=15}q${font} ${voffset -4}  Uptime: ${alignr}${uptime}
+${stippled_hr}
+#
+#CALENDAR ${hr}
+#${voffset 4}${font RsbillsDng:size=14}O${font} ${execp /home/macht/.scripts/conky/ConkyCalendar.py}
+#${voffset 4}${font Webdings:size=14}j${font}   Home: ${alignr}${execp ~/.scripts/conky/countdown.sh}
+#${voffset 4}${font RsbillsDng:size=14}A${font}   New Year: ${alignr}${execp ~/.scripts/conky/countdown2.sh}
+${voffset 3}HDD:${alignc -15}${diskiograph 10,90 e6fbde b0f482}${alignr}${font Weather:size=15}y${font} ${voffset -6}${execi 300 hddtemp -n /dev/sda}°C${hr}
+${voffset 3}${font Pie charts for maps:size=15}i${font} ${voffset -4}  Root: ${fs_used /}/${fs_size /} ${alignr}${fs_bar 8,60 /}
+${voffset 3}${font Pie charts for maps:size=15}i${font} ${voffset -4}  Home: ${fs_used /home}/${fs_size /home} ${alignr}${fs_bar 8,60 /home}
+${voffset 3}${font Pie charts for maps:size=15}i${font} ${voffset -4}  Var:  ${fs_used /var}/${fs_size /var} ${alignr}${fs_bar 8,60 /var}
+${stippled_hr}
+${voffset 3}INTERNET:${alignr}${addr ppp0}
+${voffset 3}${font PizzaDude Bullets:size=15}U${font}   Down: ${downspeed ppp0} ${alignr}${downspeedgraph ppp0 8,60 e6fbde b0f482}
+${voffset 3}${font PizzaDude Bullets:size=15}O${font}   Up: ${upspeed ppp0} ${alignr}${upspeedgraph ppp0 8,60 e6fbde b0f482}
+        ${stippled_hr}      
+${voffset 3}        Today: ${alignr 28}Month:
+${voffset 3}${font PizzaDude Bullets:size=15}T${font}   ${execi 60 vnstat -i ppp0 | grep "today" | awk '{print $2 $3}'}${alignr}${offset -8}${execi 300 vnstat -i ppp0 -m | grep "`LANG=en_GB.UTF-8 date +"%b '%y"`" | awk '{print $3 $4}'}${voffset -4}   ${font PizzaDude Bullets:size=15}U${font}
+${voffset 3}${font PizzaDude Bullets:size=15}N${font}   ${execi 60 vnstat -i ppp0 | grep "today" | awk '{print $5 $6}'}${alignr}${offset -8}${execi 300 vnstat -i ppp0 -m | grep "`LANG=en_GB.UTF-8 date +"%b '%y"`" | awk '{print $6 $7}'}${voffset -4}   ${font PizzaDude Bullets:size=15}O${font}
+${voffset 3}${font PizzaDude Bullets:size=15}a${font}   ${execi 60 vnstat -i ppp0 | grep "today" | awk '{print $8 $9}'}${alignr}${offset -8}${execi 300 vnstat -i ppp0 -m | grep "`LANG=en_GB.UTF-8 date +"%b '%y"`" | awk '{print $9 $10}'}${voffset -4}   ${font PizzaDude Bullets:size=15}b${font}
+#
+#GMAIL ${hr 2}
+#
+#${voffset -8}${font PizzaDude Bullets:size=14}B${font}  Gmail: ${alignr}${font DejaVu Sans:style=Bold:size=8}${execi 600 conkyEmail --servertype=IMAP --servername=imap.googlemail.com --username=avspiri --password=lQoVoeCBZiSGk9EQmhGg  --ssl}${font} New email(s)
+${stippled_hr}
+${voffset 3}WEATHER:${alignr 35}${execi 600 conkyForecast --location=RSXX0069 --datatype=HT}  ${voffset -4}${font ConkyWeather:style=Bold:size=20}${execi 600 conkyForecast --location=RSXX0069 --datatype=WF}${font}
+#${voffset -5}${alignr 46}${font ConkyWeather:style=Bold:size=40}${execi 600 conkyForecast --location=RSXX0069 --datatype=WF}${font} 
+#${voffset -50}${font Weather:size=40}y${font}  ${voffset -36}${font Arial Black:size=20}${execi 600 conkyForecast --location=RSXX0069 --datatype=HT}${font}
+${voffset 0}${alignc 55}${execpi 600 conkyForecast --location=RSXX0069 --datatype=DW --startday=1 --shortweekday} ${alignc 10}${execpi 600 conkyForecast --location=RSXX0069 --datatype=DW --startday=2 --shortweekday} ${alignc -38}${execpi 600 conkyForecast --location=RSXX0069 --datatype=DW --startday=3 --shortweekday} ${alignc -80}${execpi 600 conkyForecast --location=RSXX0069 --datatype=DW --startday=4 --shortweekday}
+${voffset 0}${alignc 75}${font ConkyWeather:size=28}${execpi 600 conkyForecast --location=RSXX0069 --datatype=WF --startday=1 --endday=4 --spaces=2}${font}
+${voffset 0}${alignc 40}${execpi 600 conkyForecast --location=RSXX0069 --datatype=HT --startday=1 --hideunits --centeredwidth=3}/${execpi 600 conkyForecast --location=RSXX0069 --datatype=LT --startday=1 --hideunits --centeredwidth=3} ${alignc -23}${execpi 600 conkyForecast --location=RSXX0069 --datatype=HT --startday=2 --hideunits --centeredwidth=3}/${execpi 600 conkyForecast --location=RSXX0069 --datatype=LT --startday=2 --hideunits --centeredwidth=3} ${alignc -55}${execpi 600 conkyForecast --location=RSXX0069 --datatype=HT --startday=3 --hideunits --centeredwidth=3}/${execpi 600 conkyForecast --location=RSXX0069 --datatype=LT --startday=3 --hideunits --centeredwidth=3} ${alignr 2}${execpi 600 conkyForecast --location=RSXX0069 --datatype=HT --startday=4 --hideunits --centeredwidth=3}/${execpi 600 conkyForecast --location=RSXX0069 --datatype=LT --startday=4 --hideunits --centeredwidth=3}${font}
+${stippled_hr}
+

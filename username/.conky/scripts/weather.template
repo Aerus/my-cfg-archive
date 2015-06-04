@@ -1,0 +1,4 @@
+Four day forecast:${hr 1}
+${goto 35}[--datatype=DW --startday=0]${goto 120}[--datatype=DW --startday=1]${goto 210}[--datatype=DW --startday=2]${goto 300}[--datatype=DW --startday=3]
+${goto 20}[--datatype=HT --hideunits --startday=0]/[--datatype=LT --hideunits --startday=0]${goto 110}[--datatype=HT --hideunits --startday=1]/[--datatype=LT --hideunits --startday=1]${goto 200}[--datatype=HT --hideunits --startday=2]/[--datatype=LT --hideunits --startday=2]${goto 290}[--datatype=HT --hideunits --startday=3]/[--datatype=LT --hideunits --startday=3]
+${image [--datatype=WI --startday=0] -p 0,40 -s 80x80}${image [--datatype=WI --startday=1] -p 90,40 -s 80x80}${image [--datatype=WI --startday=2] -p 180,40 -s 80x80}${image [--datatype=WI --startday=3] -p 260,40 -s 80x80}

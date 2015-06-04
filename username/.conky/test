@@ -1,0 +1,34 @@
+
+
+${font arial black:size=10}${color green}NETWORK:${color} ${hr 2}$color$font
+${if_existing /proc/net/route ppp0}PPP0 ${alignr}Local IP: ${addr ppp0}
+DOWN: $color${downspeed ppp0} k/s ${alignr}UP: ${upspeed ppp0} k/s
+${downspeedgraph ppp0 20,100 303030 C0C0C0} ${alignr}${upspeedgraph ppp0 20,100 303030 C0C0C0}$color
+IN: ${totaldown ppp0} ${alignr}OUT: ${totalup ppp0}${else}ppp0: Network Unavalable${endif}
+${if_existing /proc/net/route eth0}ETH0 ${alignr}Local IP: ${addr eth0}
+DOWN: $color${downspeed eth0} k/s ${alignr}UP: ${upspeed eth0} k/s
+${downspeedgraph eth0 25,100 303030 C0C0C0} ${alignr}${upspeedgraph eth0 25,100 303030 C0C0C0}$color
+IN: ${totaldown eth0} ${alignr}OUT: ${totalup eth0}${else}eth0: Network Unavailable${endif}
+${font arial black:size=10}${color green}TRAFFIC:${color} ${hr 2}$color$font
+${alignr}IN         ${alignr}OUT         ${alignr}TOTAL
+${texeci 10 vnstat -i eth0| grep "today" | awk '{print $2 $3}'}${alignr}${offset -8}${texeci 10 vnstat -i eth0| grep "today" | awk '{print $5 $6}'} ${alignr}${texeci 10 vnstat -i eth0 | grep "today" | awk '{print $8 $9}'}
+${execi 60 vnstat -i ppp0 | grep "today" | awk '{print $8 $9}'}${alignr}${offset -8}${execi 300 vnstat -i ppp0 -m | grep "`LANG=en_GB.UTF-8 date +"%b '%y"`" | awk '{print $9 $10}'}${voffset -4}   ${font PizzaDude Bullets:size=15}b${font}
+
+
+${if_existing /proc/net/route ppp0}PPP0 ${alignr}Local IP: ${addr ppp0}
+DOWN: $color${downspeed ppp0} k/s ${alignr}UP: ${upspeed ppp0} k/s
+${downspeedgraph ppp0 20,100 303030 C0C0C0} ${alignr}${upspeedgraph ppp0 20,100 303030 C0C0C0}$color
+IN: ${totaldown ppp0} ${alignr}OUT: ${totalup ppp0}${else}ppp0: Network Unavalable${endif}
+${if_existing /proc/net/route eth0}ETH0 ${alignr}Local IP: ${addr eth0}
+DOWN: $color${downspeed eth0} k/s ${alignr}UP: ${upspeed eth0} k/s
+${downspeedgraph eth0 25,100 303030 C0C0C0} ${alignr}${upspeedgraph eth0 25,100 303030 C0C0C0}$color
+IN: ${totaldown eth0} ${alignr}OUT: ${totalup eth0}${else}eth0: Network Unavailable${endif}
+
+
+Yesterday: ${alignr}${texeci 300 vnstat -i eth0 | grep "yesterday" | awk '{print $2 $3}'}  ${alignr}${texeci 300 vnstat -i eth0| grep "yesterday" | awk '{print $5 $6}'}  ${alignr}${texeci 300 vnstat -i eth0| grep "yesterday" | awk '{print $8 $9}'}
+Week: ${alignr}${texeci 300 vnstat -w -i eth0| grep "current week" | awk '{print $3 $4}'}  ${alignr}${texeci 300 vnstat -w -i eth0 | grep "current week" | awk '{print $6 $7}'}  ${alignr}${texeci 300 vnstat -w -i eth0 | grep "current week" | awk '{print $9 $10}'}
+Month: ${alignr}${texeci 300 vnstat -m -i eth0 | grep `LANG=en_GB.UTF-8 date +"%b"` | awk '{print $3 $4}'}  ${alignr}${texeci 300 vnstat -m -i eth0 | grep `LANG=en_GB.UTF-8 date +"%b"` | awk '{print $6 $7}'}  ${alignr}${texeci 300 vnstat -m -i eth0 | grep `LANG=en_GB.UTF-8 date +"%b"` | awk '{print $9 $10}'}${font}${endif}
+
+${if_existing /proc/net/route eth0}Today: ${alignr}${texeci 10 vnstat -i eth0| grep "today" | awk '{print $2 $3}'}  ${alignr}${texeci 10 vnstat  -i eth0| grep "today" | awk '{print $5 $6}'} ${alignr}${texeci 10 vnstat -i eth0 | grep "today" | awk '{print $8 $9}'}
+Week: ${alignr}${texeci 300 vnstat -w -i eth0| grep "current week" | awk '{print $3 $4}'}  ${alignr}${texeci 300 vnstat -w -i eth0 | grep "current week" | awk '{print $6 $7}'}  ${alignr}${texeci 300 vnstat -w -i eth0 | grep "current week" | awk '{print $9 $10}'}
+Month: ${alignr}${texeci 300 vnstat -m -i eth0 | grep `LANG=en_GB.UTF-8 date +"%b"` | awk '{print $3 $4}'}  ${alignr}${texeci 300 vnstat -m -i eth0 | grep `LANG=en_GB.UTF-8 date +"%b"` | awk '{print $6 $7}'}  ${alignr}${texeci 300 vnstat -m -i eth0 | grep `LANG=e
